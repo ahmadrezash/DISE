@@ -10,7 +10,7 @@ import pathlib
 from PIL import Image
 import numpy as np
 from lib.Data.Transforms import InputDataTransform
-from FeatureExtractor import VGG16FeatureExtractor
+from .FeatureExtractor import VGG16FeatureExtractor
 
 DATA_ROOT = '/home/ahmad/Project/dise/flask-dise/static/img/sample3'
 fe = VGG16FeatureExtractor()
@@ -82,10 +82,10 @@ class DesignDataset(data.Dataset, metaclass=ABCMeta):
         return img
 
 
-if __name__ == '__main__':
-    from Dataset import DesignDataset
-
-    DATA_ROOT = "F:\\dise\\flask-dise\\static\\img\\DataSet"
-    VEC_ROOT = "F:\\dise\\flask-dise\\static\\feature\\VGG16\\VGG16\\DataSet"
-    dataset = DesignDataset(root=DATA_ROOT, vector_root=VEC_ROOT)
-    img = dataset[4:6]
+# if __name__ == '__main__':
+#     from Dataset import DesignDataset
+#
+#     DATA_ROOT = "F:\\dise\\flask-dise\\static\\img\\DataSet"
+#     VEC_ROOT = "F:\\dise\\flask-dise\\static\\feature\\VGG16\\VGG16\\DataSet"
+#     dataset = DesignDataset(root=DATA_ROOT, vector_root=VEC_ROOT)
+#     img = dataset[4:6]
