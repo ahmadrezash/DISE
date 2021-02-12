@@ -10,27 +10,20 @@ import pathlib
 from PIL import Image
 import numpy as np
 from lib.Data.Transforms import InputDataTransform
+from FeatureExtractor import VGG16FeatureExtractor
 
 DATA_ROOT = '/home/ahmad/Project/dise/flask-dise/static/img/sample3'
-t = transforms.Compose([
-            transforms.Resize(256),
-            transforms.CenterCrop(224),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-        ])
-from torchvision.models import vgg16
+fe = VGG16FeatureExtractor()
 
-model = vgg16()
-# model.features(img)
-from torch import flatten
+
 class DesignDataset(data.Dataset, metaclass=ABCMeta):
 
     def __init__(self, root: str = DATA_ROOT, vector_root: str = "") -> None:
         # transform = InputDataTransform()
-        transform = t
+        # transform = t
         self.root = root
         self.vector_root = vector_root
-        self.transform = transform
+        # self.transform = transform
 
     # super().__init__(root, transform=transform)
 
@@ -75,13 +68,12 @@ class DesignDataset(data.Dataset, metaclass=ABCMeta):
 
         if type(el_name) is list:
             res = list(map(lambda x: self.open_image(x), el_name))
-            with torch.no_grad():
-                vec_res = list(map(lambda x: flatten(model.features(self.transform(x).unsqueeze(0)).squeeze(0)), res))
+            vec_res = list(map(lambda x: fe(x), res))
         else:
             res = self.open_image(el_name)
             vec_res = self.transform(res)
 
-        return res, vec_res
+        return res, vec_res,el_name
 
     @classmethod
     def get_images(cls, img_tensor):
@@ -97,6 +89,3 @@ if __name__ == '__main__':
     VEC_ROOT = "F:\\dise\\flask-dise\\static\\feature\\VGG16\\VGG16\\DataSet"
     dataset = DesignDataset(root=DATA_ROOT, vector_root=VEC_ROOT)
     img = dataset[4:6]
-    from torchvision.models import vgg16
-    model = vgg16()
-    model.features(img)

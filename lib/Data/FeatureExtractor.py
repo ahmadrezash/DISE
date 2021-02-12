@@ -6,6 +6,7 @@ from lib.Data.Transforms import vgg16_transform
 
 class VGG16FeatureExtractor(torch.nn.Module):
     def __init__(self):
+        super(VGG16FeatureExtractor, self).__init__()
         self.transform = vgg16_transform
         model = vgg16()
         self.vgg_fe = model.features
