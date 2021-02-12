@@ -1,11 +1,12 @@
-from torchvision.transforms import Compose, Grayscale, Resize, ToPILImage, transforms
+from torchvision.transforms import Compose, Grayscale, Resize, ToPILImage, transforms,ToTensor
 
 
 class InputDataTransform(Compose):
 
     def __init__(self):
         transforms = [
-            Resize((200, 200)),
+            Resize((100, 100)),
+            # ToTensor()
             # Grayscale()
         ]
         super().__init__(transforms)

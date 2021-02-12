@@ -18,12 +18,13 @@ fe = VGG16FeatureExtractor()
 
 class DesignDataset(data.Dataset, metaclass=ABCMeta):
 
-    def __init__(self, root: str = DATA_ROOT, vector_root: str = "") -> None:
-        # transform = InputDataTransform()
+    def __init__(self, root: str = DATA_ROOT, vector_root: str = "",with_img=True) -> None:
+        transform = InputDataTransform()
         # transform = t
         self.root = root
         self.vector_root = vector_root
-        # self.transform = transform
+        self.transform = transform
+        self.with_img = with_img
 
     # super().__init__(root, transform=transform)
 
@@ -34,16 +35,16 @@ class DesignDataset(data.Dataset, metaclass=ABCMeta):
         img = Image.open(full_path)
 
         # return self.transform(img)
-        return img
-
-    def open_vector(self, img):
-        # f_name = el_name.split(".")[0] + ".npy"
-        # full_path = os.path.join(self.vector_root, f_name)
-        # res = np.load(full_path)
-        # assert os.path.isfile(full_path)
-        # full_path = os.path.join(self.root, name)
-        # img = Image.open(full_path)
         return self.transform(img)
+
+    # def open_vector(self, img):
+    #     # f_name = el_name.split(".")[0] + ".npy"
+    #     # full_path = os.path.join(self.vector_root, f_name)
+    #     # res = np.load(full_path)
+    #     # assert os.path.isfile(full_path)
+    #     # full_path = os.path.join(self.root, name)
+    #     # img = Image.open(full_path)
+    #     return self.transform(img)
 
     def get_abs_path(self):
         return pathlib.Path(self.root)
@@ -72,20 +73,13 @@ class DesignDataset(data.Dataset, metaclass=ABCMeta):
         else:
             res = self.open_image(el_name)
             vec_res = self.transform(res)
-
-        return res, vec_res,el_name
+        if self.with_img:
+            return res, vec_res,el_name
+        else:
+            return [], vec_res,el_name
 
     @classmethod
     def get_images(cls, img_tensor):
         transform = ToPILImage()
         img = transform(img_tensor)
         return img
-
-
-# if __name__ == '__main__':
-#     from Dataset import DesignDataset
-#
-#     DATA_ROOT = "F:\\dise\\flask-dise\\static\\img\\DataSet"
-#     VEC_ROOT = "F:\\dise\\flask-dise\\static\\feature\\VGG16\\VGG16\\DataSet"
-#     dataset = DesignDataset(root=DATA_ROOT, vector_root=VEC_ROOT)
-#     img = dataset[4:6]

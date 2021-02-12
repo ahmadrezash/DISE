@@ -2,5 +2,7 @@ torch~=1.7.1
 torchvision~=0.2.2.post3
 numpy~=1.20.1
 pillow~=8.1.0
-joblib
+joblib~=1.0.1
 sklearn
+matplotlib~=3.3.4
+scikit-learn~=0.24.1
