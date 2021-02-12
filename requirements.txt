@@ -1,2 +1,6 @@
 torch~=1.7.1
 torchvision~=0.2.2.post3
+numpy~=1.20.1
+pillow~=8.1.0
+joblib
+sklearn
