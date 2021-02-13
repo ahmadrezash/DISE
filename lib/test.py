@@ -19,7 +19,19 @@ def test_FeatureExtractor():
 	res = fe(img[0][1])
 	pass
 
+def test_PerceptualLoss():
+	from lib.Data.PerceptualLoss import VGGPerceptualLoss
+	from torchvision.transforms import ToTensor
+	img = dataset[4:6]
+	dis_model = VGGPerceptualLoss()
+	t = ToTensor()
+	dis = dis_model(img[0][0],img[0][1])
+
+	print(dis)
+
 
 if __name__ == '__main__':
 	# test_Dataset()
-	test_FeatureExtractor()
+	# test_FeatureExtractor()
+
+	test_PerceptualLoss()

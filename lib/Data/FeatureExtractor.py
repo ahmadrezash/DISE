@@ -9,7 +9,7 @@ class VGG16FeatureExtractor(torch.nn.Module):
     def __init__(self, PCA=None):
         super(VGG16FeatureExtractor, self).__init__()
         self.transform = vgg16_transform
-        model = vgg16()
+        model = vgg16(pretrained=True)
         self.vgg_fe = model.features.to(device)
         self.pca = PCA
 
