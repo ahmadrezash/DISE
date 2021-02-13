@@ -4,6 +4,7 @@ from sklearn.metrics import silhouette_samples, silhouette_score
 
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
+import matplotlib.pyplot as plt
 
 import numpy as np
 
@@ -20,10 +21,12 @@ if __name__ == '__main__':
 	from lib.utils import show_image
 	from joblib import dump, load
 
+	sil_list = []
+
 	pca = load(PCA_PATH)
 	print("PCA loaded")
 	dataset = DesignDataset(root=DATA_ROOT, vector_root=VEC_ROOT, )
-	img = dataset[10:1010]
+	img = dataset[10:1510]
 	print("Data loaded")
 	X_tmp = np.array(list(map(lambda x: x.cpu().numpy(), img[1])))
 	X = pca.transform(X_tmp)
@@ -55,6 +58,7 @@ if __name__ == '__main__':
 		silhouette_avg = silhouette_score(X, cluster_labels)
 		print("For n_clusters =", n_clusters,
 		      "The average silhouette_score is :", silhouette_avg)
+		silhouette_avg.append(silhouette_avg)
 
 		# Compute the silhouette scores for each sample
 		sample_silhouette_values = silhouette_samples(X, cluster_labels)
@@ -95,4 +99,7 @@ if __name__ == '__main__':
 		              "with n_clusters = %d" % n_clusters),
 		             fontsize=14, fontweight='bold')
 
+	plt.show()
+
+	plt.plot(sil_list)
 	plt.show()
