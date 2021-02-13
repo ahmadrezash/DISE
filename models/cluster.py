@@ -4,6 +4,7 @@ from sklearn.metrics import silhouette_samples, silhouette_score
 
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
+
 import numpy as np
 
 print(__doc__)
@@ -11,17 +12,19 @@ print(__doc__)
 # Generating the sample data from make_blobs
 # This particular setting has one distinct cluster and 3 clusters placed close
 # together.
+
 if __name__ == '__main__':
     import numpy as np
     from lib.Data import DesignDataset
+    from lib.settings import DATA_ROOT, PCA_PATH, VEC_ROOT
     from lib.utils import show_image
+    from joblib import dump, load
 
-    DATA_ROOT = "F:\\dise\\flask-dise\\static\\img\\DataSet"
-    VEC_ROOT = "F:\\dise\\flask-dise\\static\\feature\\VGG16\\VGG16\\DataSet"
+    pca = load(PCA_PATH)
     dataset = DesignDataset(root=DATA_ROOT, vector_root=VEC_ROOT, )
-    img = dataset[10:410]
-    X = np.array(list(map(lambda x: x.numpy(), img[1])))
-
+    img = dataset[10:610]
+    X_tmp = np.array(list(map(lambda x: x.cpu().numpy(), img[1])))
+    X = pca.transform(X_tmp)
     range_n_clusters = range(2,20,2)
 
     for n_clusters in range_n_clusters:

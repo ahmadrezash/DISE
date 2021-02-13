@@ -2,27 +2,30 @@ from lib.Data import DesignDataset
 from sklearn.decomposition import PCA
 import numpy as np
 from joblib import dump, load
+from lib.settings import DATA_ROOT, VEC_ROOT, PCA_PATH
 
 if __name__ == '__main__':
-    DATA_ROOT = "F:\\dise\\flask-dise\\static\\img\\DataSet"
-    VEC_ROOT = "F:\\dise\\flask-dise\\static\\feature\\VGG16\\VGG16\\DataSet"
-    dataset = DesignDataset(root=DATA_ROOT, vector_root=VEC_ROOT)
-    print("dataset created")
+	dataset = DesignDataset(root=DATA_ROOT, vector_root=VEC_ROOT)
+	print("dataset created")
 
-    img = dataset[:1000]
-    print(img[1][0].shape)
+	count_of_data = 1500
+	output_dim = 600
 
-    print("3000 data loaded")
+	img = dataset[:count_of_data]
+	print(img[1][0].shape)
 
-    pca = PCA(n_components=600)
-    l = np.array(list(map(lambda x: x.numpy(), img[1])))
-    print("data reshaped")
+	print("3000 data loaded")
 
-    pca.fit(l)
-    print("PCA fit")
+	pca = PCA(n_components=output_dim)
+	img_list = np.array(list(map(lambda x: x.cpu().numpy(), img[1])))
+	print("data reshaped")
 
-    dump(pca, "pca.pkl")
-    pca_ = load("pca.pkl")
-    print("PCA saved")
+	pca.fit(img_list)
+	print("PCA fit")
 
-    print(pca_.transform(l[:2]).shape)
+	dump(pca, PCA_PATH)
+	pca_ = load(PCA_PATH)
+	print("PCA saved")
+
+	print("Test loaded PCA")
+	print(pca_.transform(img_list[:2]).shape)
