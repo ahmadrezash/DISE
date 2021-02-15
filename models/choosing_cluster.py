@@ -26,10 +26,11 @@ if __name__ == '__main__':
 	pca = load(PCA_PATH)
 	print("PCA loaded")
 	dataset = DesignDataset(root=DATA_ROOT, vector_root=VEC_ROOT, )
-	img = dataset[10:1510]
+	img = dataset[10:510]
 	print("Data loaded")
 	X_tmp = np.array(list(map(lambda x: x.cpu().numpy(), img[1])))
-	X = pca.transform(X_tmp)
+	# X = pca.transform(X_tmp)
+	X = X_tmp
 	print("Data Transformed")
 
 	range_n_clusters = range(2, 20)
@@ -58,7 +59,7 @@ if __name__ == '__main__':
 		silhouette_avg = silhouette_score(X, cluster_labels)
 		print("For n_clusters =", n_clusters,
 		      "The average silhouette_score is :", silhouette_avg)
-		silhouette_avg.append(silhouette_avg)
+		sil_list.append(silhouette_avg)
 
 		# Compute the silhouette scores for each sample
 		sample_silhouette_values = silhouette_samples(X, cluster_labels)
