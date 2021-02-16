@@ -29,6 +29,7 @@ class DesignDataset(data.Dataset, metaclass=ABCMeta):
 	# super().__init__(root, transform=transform)
 
 	def open_image(self, name):
+
 		full_path = os.path.join(self.root, name)
 		assert os.path.isfile(full_path)
 		# img = torchvision.io.read_image(full_path).type(dtype=torch.float32)

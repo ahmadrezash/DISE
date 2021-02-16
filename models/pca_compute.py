@@ -8,11 +8,11 @@ if __name__ == '__main__':
 	dataset = DesignDataset(root=DATA_ROOT, vector_root=VEC_ROOT)
 	print("dataset created")
 
-	count_of_data = 1500
+	count_of_data = 2100
 	output_dim = 600
 
 	img = dataset[:count_of_data]
-	print(img[1][0].shape)
+	# print(img[1][0].shape)
 
 	print("3000 data loaded")
 

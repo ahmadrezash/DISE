@@ -65,24 +65,25 @@
 	<hr>
 	<h2>Results:</h2>
 	<div class="row">
+		{{scores}}
 		{% for score in scores %}
 			<div class="col-3">
 				<div class="card border-secondary mb-3  text-center" style="max-width: 18rem;">
 					{#				  <div class="card-header bg-transparent border-success">Header</div>#}
 					<div class="card-body text-secondary">
 						<h5 class="card-title">
-							{{ score[2] }}
+<!--							{{ score[2] }}-->
 						</h5>
-						<img src="{{ score[1] }}" height="200px">
+						<img src="{{ score }}" height="200px">
 
 					</div>
-					{#				          <a href="#" class="btn btn-">{{ score[0] }}</a>#}
-					<div class="card-footer border-dark bg-dark text-white ">{{ score[0] }}</div>
+<!--					{#				          <a href="#" class="btn btn-">{{ score[0] }}</a>#}-->
+<!--					<div class="card-footer border-dark bg-dark text-white ">{{ score[0] }}</div>-->
 				</div>
 				{#            <figure style="float: left; margin-right: 20px; margin-bottom: 20px;">#}
-				{#                <figcaption>{{ score[2] }}</figcaption>#}
+<!--				{#                <figcaption>{{ score[2] }}</figcaption>#}-->
 				{#                <img src="{{ score[1] }}" height="200px">#}
-				{#                <figcaption>{{ score[0] }}</figcaption>#}
+<!--				{#                <figcaption>{{ score[0] }}</figcaption>#}-->
 				{#            </figure>#}
 			</div>
 		{% endfor %}
