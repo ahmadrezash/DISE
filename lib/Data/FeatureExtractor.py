@@ -25,5 +25,5 @@ class VGG16FeatureExtractor(torch.nn.Module):
 				else:
 					res_vector = np.array(flat_vector.cpu())
 			except:
-				pass
+				res_vector = []
 		return res_vector
